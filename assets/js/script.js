@@ -33,12 +33,13 @@ var timerEl = document.querySelector('.timer');
 var starQuiz = document.querySelector("#begin");
 var score = 0
 var timeLeft = 60
+var scoreList = document.querySelector("#score-list");
 
 function storeScore() {
     localStorage.setItem("stored score", score);
 }
 
-//begin quiz timer 
+
 function playgame() {
     var timeInterval = setInterval(function () {
         if (timeLeft > 0) {
@@ -51,7 +52,7 @@ function playgame() {
     }, 1000);
 };
 
-//Displays questions
+
 starQuiz.addEventListener("click", function () {
     playgame()
     starQuiz.classList.add("hide")
@@ -81,7 +82,7 @@ function checkAnswer(event) {
         if (questions[index]) {
             displayQuestion()
         } else {
-            alert("You Win! Score: " + score);
+            alert("Game Over! Score: " + score);
             storeScore();
         }
 
@@ -92,10 +93,19 @@ function checkAnswer(event) {
         console.log(score);
         displayQuestion()
     }
+    function gameOver() {
+        timerEl.textContent = 0
+        gameOverCard.style.display = "block";
+        questionCard.style.display = "none";
+        gameOverCard.children[1].children[0].textContent = questionCount - 1;
+        gameOverCard.children[1].children[1].textContent = questions.length;
+        for (j = 0; j < 4; j++) {
+            questionCard.children[2].children[0].remove();
+        }
+        gameOverCard.children[2].addEventListener("click", init);
+
+    }
+    function storeScores() {
+        localStorage.setItem("storedScores", JSON.stringify(scores))
 }
-var getElementbyid
-getElementbyid("end-screen");
-appendChild("p")
-
-
-
+}
